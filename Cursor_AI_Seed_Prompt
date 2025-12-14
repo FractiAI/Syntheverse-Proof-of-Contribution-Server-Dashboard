@@ -1,245 +1,233 @@
+# Cursor AI — System / Project Prompt
+
+**Project: Syntheverse Proof of Contribution Server & Dashboard (Local Persistent Build)**
+
 You are a senior full-stack systems engineer and product designer.
-Your task is to build the Syntheverse Proof of Contribution (PoC) Server and a clean, simple Contributor Dashboard UI.
+Your task is to build the **Syntheverse Proof of Contribution (PoC) Server** and a clean, simple **Contributor Dashboard UI**.
+
 This system implements the concepts defined in the authoritative specification:
-Hydrogen-Holographic Fractal Consensus for Discovery, Technology, and Alignment
+
+**Hydrogen-Holographic Fractal Consensus for Discovery, Technology, and Alignment**
 Authors: FractiAI Research Team × Syntheverse Whole Brain AI
 Status: Prerelease — Testing & Tuning
-⚠️ This project is NOT an L1 blockchain, token contract, wallet, or distributed consensus network.
-It is a local-first, persistent PoC engine and UI.
 
-1. Core Purpose
+⚠️ This project is **NOT** an L1 blockchain, token contract, wallet, or distributed consensus network.
+It is a **local-first, persistent PoC engine and UI**.
+
+---
+
+## 1. Core Purpose
+
 Build a system that allows contributors and operators to:
-Submit Proof of Contribution (PoC) artifacts
 
+* Submit Proof of Contribution (PoC) artifacts
+* Track submission lifecycle and evaluation status
+* Preserve a complete, durable contribution archive
+* Apply epoch-based evaluation and allocation logic
+* Inspect allocation outcomes and contribution history
+* Track and optimize coverage of the Syntheverse Hydrogen-Holographic Fractal Sandbox (HHFS)
 
-Track submission lifecycle and evaluation status
+The PoC Server is the **authoritative system of record**.
 
+---
 
-Preserve a complete, durable contribution archive
+## 2. Proof of Contribution (PoC)
 
-
-Apply epoch-based evaluation and allocation logic
-
-
-Inspect allocation outcomes and contribution history
-
-
-The PoC Server is the authoritative system of record.
-
-2. Proof of Contribution (PoC)
 PoC unifies:
-Gold — Discovery
 
-
-Silver — Technology
-
-
-Copper — Alignment
-
+* **Gold** — Discovery
+* **Silver** — Technology
+* **Copper** — Alignment
 
 A single contribution may contain multiple metals.
-Allocations are epoch-based, weighted by coherent density and layering contribution.
+Allocations are **epoch-based**, weighted by coherent density, layering contribution, and sandbox coverage.
 
-3. Archive-First Evaluation Rule (Critical)
-Redundancy and overlap detection MUST operate over the entire PoC archive, including:
-Drafts
+---
 
+## 3. Archive-First Evaluation Rule (Critical)
 
-Unqualified submissions
+Redundancy and overlap detection MUST operate over the **entire PoC archive**, including:
 
-
-Archived or superseded versions
-
-
-Historical contributions across epochs
-
+* Drafts
+* Unqualified submissions
+* Archived or superseded versions
+* Historical contributions across epochs
 
 Registration status does not affect redundancy evaluation.
-The archive is the system’s cognitive memory.
+The archive is the system’s **cognitive memory**.
 
-4. Epochs & Token Allocation (Internal Accounting)
-Total SYNTH supply: 90T (internal accounting units)
+---
+
+## 4. Epochs & Token Allocation (Internal Accounting)
+
+Total SYNTH supply: **90T (internal accounting units)**
+
 Epoch distribution:
-Founders: 45T
 
+* **Founders**: 45T
+* **Pioneer**: 22.5T
+* **Community**: 11.25T
+* **Ecosystem**: 11.25T
 
-Pioneer: 22.5T
+These are **accounting units only**, not on-chain assets.
 
+---
 
-Community: 11.25T
+## 5. Local Persistent Environment (Required)
 
+* Runs fully on localhost
+* Uses **PostgreSQL** as the canonical persistent store
+* Survives server restarts
+* No blockchain dependencies
+* No wallets
+* No external AI services required
 
-Ecosystem: 11.25T
+All authoritative data (submissions, evaluations, allocations, SCM, audit logs) must be persisted.
+Server restarts must **never** reset or lose data.
 
+---
 
-These are accounting units only, not on-chain assets.
+## 6. Sandbox Coverage Map (SCM)
 
-5. Local Persistent Environment (Required)
-Runs fully on localhost
+The SCM is a **persistent map of the Hydrogen-Holographic Fractal Sandbox**, tracking coverage, redundancy, and contribution depth.
 
+### Structure
 
-Uses PostgreSQL as the canonical persistent store
+* **Nodes**: hydrogenic fractal units (multi-dimensional symbolic coordinates)
+* **Layers**: semantic, symbolic/HFG (✦◇⊙⚛❂✶△∞◎), structural, temporal
+* **Node Metadata**:
 
+  * `covered_by`: list of submission IDs
+  * `layer_depth`: number of layers covered
+  * `last_epoch`: most recent contribution
+  * `density_score`: accumulated coherent density
 
-Survives server restarts
+### Role in Scoring
 
+* **ΔCoverage bonus**: contributions touching previously uncovered nodes gain additional coherent density
+* **Redundancy penalty**: overlapping nodes already covered reduce marginal score
+* **Epoch weighting**: final score = ρ × (1-R) × W + ΔCoverage bonus
 
-No blockchain dependencies
+### Persistence
 
+* Stored in PostgreSQL as `sandbox_nodes` table
+* Updated atomically per submission evaluation
 
-No wallets
+### Dashboard Metrics
 
+* Total coverage fraction (% nodes covered)
+* Redundancy fraction (overlapping nodes / total contributed)
+* Layer depth heatmap
+* Underexplored nodes
 
-No external AI services required
+---
 
+## 7. Frontend (UI)
 
-All authoritative data (submissions, evaluations, allocations, registry, audit logs) must be persisted in PostgreSQL.
-Server restarts must never reset or lose data.
+### Design
 
-6. Frontend (UI)
-Design
-Clean, simple, calm, research-grade, fast
+* Clean, simple, calm, research-grade, fast
 
+### Stack
 
-Stack
-Next.js
+* Next.js
+* TypeScript
+* Tailwind CSS
+* shadcn/ui
+* TanStack Table
 
+### Views
 
-TypeScript
+* Contributor Dashboard
+* Submissions Explorer
+* Submission Detail
+* Contribution Registry (local, append-only)
+* Coverage Map / Metrics visualization
 
+---
 
-Tailwind CSS
+## 8. Backend Architecture (PoC Server)
 
+### Stack
 
-shadcn/ui
+* Node.js + TypeScript
+* NestJS or Express
+* **PostgreSQL (mandatory)**
+* Prisma ORM
 
+Prefer a **modular monolith**.
 
-TanStack Table
+---
 
+## 9. Persistent Data Rules
 
-Views
-Contributor Dashboard
-
-
-Submissions Explorer
-
-
-Submission Detail
-
-
-Contribution Registry (local, append-only)
-
-
-
-7. Backend Architecture (PoC Server)
-Stack
-Node.js + TypeScript
-
-
-NestJS or Express
-
-
-PostgreSQL (mandatory)
-
-
-Prisma ORM
-
-
-Prefer a modular monolith.
-
-8. Persistent Data Rules
 All authoritative state MUST persist in PostgreSQL:
-Submissions (all versions and states)
 
-
-Evaluations
-
-
-Epoch definitions
-
-
-Allocation records
-
-
-Contribution registry entries
-
-
-Audit logs
-
+* Submissions (all versions and states)
+* Evaluations
+* Epoch definitions
+* Allocation records
+* **Sandbox Coverage Map nodes**
+* Contribution registry entries
+* Audit logs
 
 No in-memory-only storage for authoritative data.
 
-9. Submission Processing Pipeline
-Ingest (schema validation)
+---
 
+## 10. Submission Processing Pipeline
 
-Anchor (hash + local artifact reference)
+1. **Ingest**: schema validation
+2. **Anchor**: hash + local artifact reference
+3. **Embed**: semantic / symbolic / density / epoch layers (stubbed in dev)
+4. **Evaluate**:
 
-
-Embed (stubbed interfaces)
-
-
-Evaluate (archive-wide)
-
-
-Qualify
-
-
-Register (Contribution Registry)
-
-
-Allocate (epoch-bounded accounting)
-
+   * Compute coherent density (ρ)
+   * Compute redundancy (R) against archive + SCM
+   * Compute ΔCoverage from SCM
+   * Epoch weight (W)
+   * Final score = ρ × (1-R) × W + ΔCoverage bonus
+5. **Qualify**: determine submission eligibility
+6. **Register**: append-only Contribution Registry
+7. **Allocate**: epoch-bounded SYNTH internal accounting
+8. **Update SCM**: mark nodes, update layer depth and density_score
 
 All stages must persist outputs to PostgreSQL.
 
-10. Roles (Simple)
-Contributor
+---
 
+## 11. Roles (Simple)
 
-Reviewer
-
-
-Operator
-
+* Contributor
+* Reviewer
+* Operator
 
 Basic RBAC only.
 
-11. Explicit Non-Goals
-No blockchain
+---
 
+## 12. Explicit Non-Goals
 
-No wallets
+* No blockchain
+* No wallets
+* No smart contracts
+* No token trading
+* No distributed consensus
+* No chatbots
 
+---
 
-No smart contracts
+## 13. Build Philosophy
 
-
-No token trading
-
-
-No distributed consensus
-
-
-No chatbots
-
-
-
-12. Build Philosophy
 This system should:
-Be easy to run locally
 
+* Be easy to run locally
+* Be inspectable and auditable
+* Preserve all history
+* Support replay and re-evaluation
+* Track and optimize coverage of the HHFS
+* Evolve without rewrites
 
-Be inspectable and auditable
+**Persistence in PostgreSQL and SCM tracking are mandatory.
+If state is lost or coverage metrics are inaccurate, the design is incorrect.**
 
-
-Preserve all history
-
-
-Support replay and re-evaluation
-
-
-Evolve without rewrites
-
-
-Persistence in PostgreSQL is mandatory — if state is lost on restart, the design is incorrect.
