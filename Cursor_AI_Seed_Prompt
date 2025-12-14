@@ -1,0 +1,245 @@
+You are a senior full-stack systems engineer and product designer.
+Your task is to build the Syntheverse Proof of Contribution (PoC) Server and a clean, simple Contributor Dashboard UI.
+This system implements the concepts defined in the authoritative specification:
+Hydrogen-Holographic Fractal Consensus for Discovery, Technology, and Alignment
+Authors: FractiAI Research Team × Syntheverse Whole Brain AI
+Status: Prerelease — Testing & Tuning
+⚠️ This project is NOT an L1 blockchain, token contract, wallet, or distributed consensus network.
+It is a local-first, persistent PoC engine and UI.
+
+1. Core Purpose
+Build a system that allows contributors and operators to:
+Submit Proof of Contribution (PoC) artifacts
+
+
+Track submission lifecycle and evaluation status
+
+
+Preserve a complete, durable contribution archive
+
+
+Apply epoch-based evaluation and allocation logic
+
+
+Inspect allocation outcomes and contribution history
+
+
+The PoC Server is the authoritative system of record.
+
+2. Proof of Contribution (PoC)
+PoC unifies:
+Gold — Discovery
+
+
+Silver — Technology
+
+
+Copper — Alignment
+
+
+A single contribution may contain multiple metals.
+Allocations are epoch-based, weighted by coherent density and layering contribution.
+
+3. Archive-First Evaluation Rule (Critical)
+Redundancy and overlap detection MUST operate over the entire PoC archive, including:
+Drafts
+
+
+Unqualified submissions
+
+
+Archived or superseded versions
+
+
+Historical contributions across epochs
+
+
+Registration status does not affect redundancy evaluation.
+The archive is the system’s cognitive memory.
+
+4. Epochs & Token Allocation (Internal Accounting)
+Total SYNTH supply: 90T (internal accounting units)
+Epoch distribution:
+Founders: 45T
+
+
+Pioneer: 22.5T
+
+
+Community: 11.25T
+
+
+Ecosystem: 11.25T
+
+
+These are accounting units only, not on-chain assets.
+
+5. Local Persistent Environment (Required)
+Runs fully on localhost
+
+
+Uses PostgreSQL as the canonical persistent store
+
+
+Survives server restarts
+
+
+No blockchain dependencies
+
+
+No wallets
+
+
+No external AI services required
+
+
+All authoritative data (submissions, evaluations, allocations, registry, audit logs) must be persisted in PostgreSQL.
+Server restarts must never reset or lose data.
+
+6. Frontend (UI)
+Design
+Clean, simple, calm, research-grade, fast
+
+
+Stack
+Next.js
+
+
+TypeScript
+
+
+Tailwind CSS
+
+
+shadcn/ui
+
+
+TanStack Table
+
+
+Views
+Contributor Dashboard
+
+
+Submissions Explorer
+
+
+Submission Detail
+
+
+Contribution Registry (local, append-only)
+
+
+
+7. Backend Architecture (PoC Server)
+Stack
+Node.js + TypeScript
+
+
+NestJS or Express
+
+
+PostgreSQL (mandatory)
+
+
+Prisma ORM
+
+
+Prefer a modular monolith.
+
+8. Persistent Data Rules
+All authoritative state MUST persist in PostgreSQL:
+Submissions (all versions and states)
+
+
+Evaluations
+
+
+Epoch definitions
+
+
+Allocation records
+
+
+Contribution registry entries
+
+
+Audit logs
+
+
+No in-memory-only storage for authoritative data.
+
+9. Submission Processing Pipeline
+Ingest (schema validation)
+
+
+Anchor (hash + local artifact reference)
+
+
+Embed (stubbed interfaces)
+
+
+Evaluate (archive-wide)
+
+
+Qualify
+
+
+Register (Contribution Registry)
+
+
+Allocate (epoch-bounded accounting)
+
+
+All stages must persist outputs to PostgreSQL.
+
+10. Roles (Simple)
+Contributor
+
+
+Reviewer
+
+
+Operator
+
+
+Basic RBAC only.
+
+11. Explicit Non-Goals
+No blockchain
+
+
+No wallets
+
+
+No smart contracts
+
+
+No token trading
+
+
+No distributed consensus
+
+
+No chatbots
+
+
+
+12. Build Philosophy
+This system should:
+Be easy to run locally
+
+
+Be inspectable and auditable
+
+
+Preserve all history
+
+
+Support replay and re-evaluation
+
+
+Evolve without rewrites
+
+
+Persistence in PostgreSQL is mandatory — if state is lost on restart, the design is incorrect.
